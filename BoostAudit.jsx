@@ -110,6 +110,29 @@ const ACCESSIBILITY_STATEMENT = {
     "נתקלתם בבעיית נגישות באתר, או זקוקים למידע באמצעי חלופי? נשמח שתפנו אלינו בפרטי רכז/ת הנגישות שלעיל.",
 };
 
+const PRIVACY_POLICY = {
+  updated: "15.09.2026",
+  intro:
+    "Boost Me מכבדת את פרטיות המבקרים באתר זה. עמוד זה מפרט במדויק אילו נתונים נאספים בפועל בעת גלישה באתר — ולא יותר מכך.",
+  notCollected: [
+    "אין באתר טפסים או שדות קלט — לא נאסף שם, טלפון, אימייל או כל פרט מזהה אחר",
+    "האתר אינו קובע Cookies משלו, ואינו משתמש ב-localStorage או ב-sessionStorage",
+    "אין באתר כלי אנליטיקס, פיקסלים, או כלי מעקב אחר התנהגות גולשים",
+    "האתר אינו מעביר מידע לשום מערכת חיצונית (CRM, Webhook או דומה)",
+  ],
+  thirdPartyIntro:
+    "טעינת האתר כוללת קבצים סטטיים מספקים חיצוניים, שחושפים באופן טכני את כתובת ה-IP של המבקר לאותם ספקים (כפי שקורה בטעינת כל אתר) — לא לצורך מעקב או פרסום:",
+  thirdParty: [
+    "ספריות קוד (React, Babel) — מ-cdnjs.cloudflare.com",
+    "גופן האתר (Rubik) — מ-fonts.googleapis.com",
+    "תמונות (לוגו, איור) — מ-res.cloudinary.com",
+  ],
+  dpo:
+    "לאתר זה אין חובת מינוי ממונה הגנת פרטיות (DPO): הוא אינו סוחר במידע אישי, אינו מציע דיוור ישיר, ואינו מחזיק במאגר רשומות.",
+  contact:
+    "שאלות בנושא פרטיות ניתן להפנות בהתאם לפרטי יצירת הקשר של Boost Me המופיעים באתר.",
+};
+
 const SERVICES = [
   {
     icon: ICONS.bot,
@@ -143,9 +166,8 @@ const SERVICES = [
   },
 ];
 
-function AccessibilityModal({ open, onClose, triggerRef }) {
+function Modal({ open, onClose, triggerRef, titleId, title, closeLabel, children }) {
   const dialogRef = useRef(null);
-  const titleId = "accessibility-statement-title";
 
   useEffect(() => {
     if (!open) return;
@@ -216,12 +238,12 @@ function AccessibilityModal({ open, onClose, triggerRef }) {
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
           <h2 id={titleId} style={{ fontWeight: 800, fontSize: 22, margin: 0 }}>
-            הצהרת נגישות
+            {title}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            aria-label="סגירת הצהרת הנגישות"
+            aria-label={closeLabel}
             style={{
               background: "#FBEFE4",
               border: "none",
@@ -239,42 +261,85 @@ function AccessibilityModal({ open, onClose, triggerRef }) {
           </button>
         </div>
 
-        <p style={{ fontSize: 14, color: "#6b5f52", margin: "6px 0 18px" }}>
-          עדכון אחרון: {ACCESSIBILITY_STATEMENT.updated}
-        </p>
-
-        <p style={{ fontSize: 15, lineHeight: 1.7, margin: "0 0 18px" }}>{ACCESSIBILITY_STATEMENT.intro}</p>
-
-        <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>התאמות שבוצעו</h3>
-        <ul style={{ fontSize: 14.5, lineHeight: 1.8, margin: "0 0 18px", paddingInlineStart: 20 }}>
-          {ACCESSIBILITY_STATEMENT.done.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-
-        <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>מגבלות ידועות</h3>
-        <p style={{ fontSize: 14.5, lineHeight: 1.7, margin: "0 0 18px" }}>{ACCESSIBILITY_STATEMENT.limitations}</p>
-
-        <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>רכז/ת נגישות</h3>
-        <p style={{ fontSize: 14.5, lineHeight: 1.8, margin: "0 0 18px" }}>
-          {ACCESSIBILITY_STATEMENT.coordinator.name}
-          <br />
-          טלפון: {ACCESSIBILITY_STATEMENT.coordinator.phone}
-          <br />
-          אימייל: {ACCESSIBILITY_STATEMENT.coordinator.email}
-        </p>
-
-        <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>יצירת קשר בנושא נגישות</h3>
-        <p style={{ fontSize: 14.5, lineHeight: 1.7, margin: 0 }}>{ACCESSIBILITY_STATEMENT.contact}</p>
+        {children}
       </div>
     </div>
+  );
+}
+
+function AccessibilityStatementBody() {
+  return (
+    <>
+      <p style={{ fontSize: 14, color: "#6b5f52", margin: "6px 0 18px" }}>
+        עדכון אחרון: {ACCESSIBILITY_STATEMENT.updated}
+      </p>
+
+      <p style={{ fontSize: 15, lineHeight: 1.7, margin: "0 0 18px" }}>{ACCESSIBILITY_STATEMENT.intro}</p>
+
+      <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>התאמות שבוצעו</h3>
+      <ul style={{ fontSize: 14.5, lineHeight: 1.8, margin: "0 0 18px", paddingInlineStart: 20 }}>
+        {ACCESSIBILITY_STATEMENT.done.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+
+      <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>מגבלות ידועות</h3>
+      <p style={{ fontSize: 14.5, lineHeight: 1.7, margin: "0 0 18px" }}>{ACCESSIBILITY_STATEMENT.limitations}</p>
+
+      <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>רכז/ת נגישות</h3>
+      <p style={{ fontSize: 14.5, lineHeight: 1.8, margin: "0 0 18px" }}>
+        {ACCESSIBILITY_STATEMENT.coordinator.name}
+        <br />
+        טלפון: {ACCESSIBILITY_STATEMENT.coordinator.phone}
+        <br />
+        אימייל: {ACCESSIBILITY_STATEMENT.coordinator.email}
+      </p>
+
+      <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>יצירת קשר בנושא נגישות</h3>
+      <p style={{ fontSize: 14.5, lineHeight: 1.7, margin: 0 }}>{ACCESSIBILITY_STATEMENT.contact}</p>
+    </>
+  );
+}
+
+function PrivacyPolicyBody() {
+  return (
+    <>
+      <p style={{ fontSize: 14, color: "#6b5f52", margin: "6px 0 18px" }}>
+        עדכון אחרון: {PRIVACY_POLICY.updated}
+      </p>
+
+      <p style={{ fontSize: 15, lineHeight: 1.7, margin: "0 0 18px" }}>{PRIVACY_POLICY.intro}</p>
+
+      <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>מה האתר הזה לא אוסף</h3>
+      <ul style={{ fontSize: 14.5, lineHeight: 1.8, margin: "0 0 18px", paddingInlineStart: 20 }}>
+        {PRIVACY_POLICY.notCollected.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+
+      <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>מה כן נטען מצדדים שלישיים</h3>
+      <p style={{ fontSize: 14.5, lineHeight: 1.7, margin: "0 0 10px" }}>{PRIVACY_POLICY.thirdPartyIntro}</p>
+      <ul style={{ fontSize: 14.5, lineHeight: 1.8, margin: "0 0 18px", paddingInlineStart: 20 }}>
+        {PRIVACY_POLICY.thirdParty.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+
+      <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>ממונה הגנת פרטיות</h3>
+      <p style={{ fontSize: 14.5, lineHeight: 1.7, margin: "0 0 18px" }}>{PRIVACY_POLICY.dpo}</p>
+
+      <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>יצירת קשר בנושא פרטיות</h3>
+      <p style={{ fontSize: 14.5, lineHeight: 1.7, margin: 0 }}>{PRIVACY_POLICY.contact}</p>
+    </>
   );
 }
 
 export default function BoostAudit() {
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [showAccessibility, setShowAccessibility] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
   const accessibilityLinkRef = useRef(null);
+  const privacyLinkRef = useRef(null);
   useEffect(() => {
     const t = setTimeout(() => setHeroLoaded(true), 80);
     return () => clearTimeout(t);
@@ -532,30 +597,63 @@ export default function BoostAudit() {
       <footer style={{ textAlign: "center", padding: "26px", color: "#6b5f52", fontSize: 13 }}>
         Boost Audit · Boost Me · GEMS Digital Projects
         <br />
-        <button
-          type="button"
-          ref={accessibilityLinkRef}
-          onClick={() => setShowAccessibility(true)}
-          style={{
-            background: "none",
-            border: "none",
-            padding: 0,
-            marginTop: 8,
-            color: "#6b5f52",
-            fontSize: 13,
-            textDecoration: "underline",
-            cursor: "pointer",
-          }}
-        >
-          הצהרת נגישות
-        </button>
+        <span style={{ display: "inline-flex", gap: 14, marginTop: 8 }}>
+          <button
+            type="button"
+            ref={accessibilityLinkRef}
+            onClick={() => setShowAccessibility(true)}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              color: "#6b5f52",
+              fontSize: 13,
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            הצהרת נגישות
+          </button>
+          <button
+            type="button"
+            ref={privacyLinkRef}
+            onClick={() => setShowPrivacy(true)}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              color: "#6b5f52",
+              fontSize: 13,
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            מדיניות פרטיות
+          </button>
+        </span>
       </footer>
 
-      <AccessibilityModal
+      <Modal
         open={showAccessibility}
         onClose={() => setShowAccessibility(false)}
         triggerRef={accessibilityLinkRef}
-      />
+        titleId="accessibility-statement-title"
+        title="הצהרת נגישות"
+        closeLabel="סגירת הצהרת הנגישות"
+      >
+        <AccessibilityStatementBody />
+      </Modal>
+
+      <Modal
+        open={showPrivacy}
+        onClose={() => setShowPrivacy(false)}
+        triggerRef={privacyLinkRef}
+        titleId="privacy-policy-title"
+        title="מדיניות פרטיות"
+        closeLabel="סגירת מדיניות הפרטיות"
+      >
+        <PrivacyPolicyBody />
+      </Modal>
     </div>
   );
 }
