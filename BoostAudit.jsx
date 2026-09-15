@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 const BRAND = {
   magenta: "#E0128B",
   orange: "#F68920",
+  orangeText: "#C1440E",
   cream: "#FFF8F0",
   charcoal: "#2B2118",
 };
@@ -95,6 +96,7 @@ const SERVICES = [
       "עוברים על שיחות אמיתיות מול הבוט שבנית, מוצאים איפה הוא טועה, נתקע, או עונה משהו שלא היית רוצה שהוא יגיד — כולל אם הוא שופך החוצה מידע שלא אמור לצאת — ומחזירים דוח עם תיקונים קונקרטיים, לא רק \"נראה טוב\".",
     time: "משך: מותאם לגודל הבוט, נסגר בהצעת המחיר",
     accent: BRAND.magenta,
+    accentText: BRAND.magenta,
   },
   {
     icon: ICONS.landing,
@@ -104,6 +106,7 @@ const SERVICES = [
       "נגישות, מדידה, ומהירות טעינה — עוברים על העמוד שבנית סעיף-סעיף, לפני שמישהו משלם על תנועה לעמוד שלא ממיר או לא עומד בתקן.",
     time: "משך: מותאם להיקף העמוד, נסגר בהצעת המחיר",
     accent: BRAND.orange,
+    accentText: BRAND.orangeText,
   },
   {
     icon: ICONS.message,
@@ -113,6 +116,7 @@ const SERVICES = [
       "עוברים על הטקסטים בעמוד הנחיתה ובקמפיינים שמובילים אליו — מה כתוב בעמוד, מה כתוב במודעה — ובודקים אם זה משכנע, עקבי, ומדבר לקהל הנכון.",
     time: "משך: מותאם להיקף התוכן, נסגר בהצעת המחיר",
     accent: BRAND.magenta,
+    accentText: BRAND.magenta,
   },
 ];
 
@@ -134,6 +138,11 @@ export default function BoostAudit() {
         }
         .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(43,33,24,0.12); }
         .whatsapp-btn:hover { transform: scale(1.04); }
+        .whatsapp-btn:focus-visible {
+          outline: 3px solid ${BRAND.charcoal};
+          outline-offset: 3px;
+          box-shadow: 0 0 0 6px rgba(255,255,255,0.9);
+        }
       `}</style>
 
       {/* HERO */}
@@ -147,7 +156,7 @@ export default function BoostAudit() {
           alignItems: "center",
           textAlign: "center",
           padding: "60px 24px",
-          background: `linear-gradient(135deg, ${BRAND.magenta}, ${BRAND.orange})`,
+          background: `linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.32)), linear-gradient(135deg, ${BRAND.magenta}, ${BRAND.orange})`,
           overflow: "hidden",
         }}
       >
@@ -271,7 +280,7 @@ export default function BoostAudit() {
                   {s.icon}
                 </div>
                 <h3 style={{ fontWeight: 800, fontSize: 21, margin: "0 0 4px" }}>{s.name}</h3>
-                <div style={{ color: s.accent, fontWeight: 600, fontSize: 14.5, marginBottom: 14 }}>
+                <div style={{ color: s.accentText, fontWeight: 600, fontSize: 14.5, marginBottom: 14 }}>
                   {s.tagline}
                 </div>
                 <p style={{ fontSize: 15.5, lineHeight: 1.7, color: "#4a4038", margin: "0 0 18px" }}>{s.body}</p>
@@ -327,7 +336,7 @@ export default function BoostAudit() {
       <section
         style={{
           position: "relative",
-          background: `linear-gradient(135deg, ${BRAND.orange}, ${BRAND.magenta})`,
+          background: `linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.32)), linear-gradient(135deg, ${BRAND.orange}, ${BRAND.magenta})`,
           padding: "80px 24px",
           textAlign: "center",
         }}
