@@ -64,12 +64,11 @@ const ICONS = {
       <rect x="15" y="25" width="18" height="8" rx="4" stroke={BRAND.orange} strokeWidth="2.5" />
     </svg>
   ),
-  automation: (
+  message: (
     <svg viewBox="0 0 48 48" width="34" height="34" fill="none" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="14" r="6" stroke={BRAND.magenta} strokeWidth="2.5" />
-      <circle cx="36" cy="34" r="6" stroke={BRAND.magenta} strokeWidth="2.5" />
-      <path d="M16 18 L30 29" stroke={BRAND.magenta} strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M25 29 L30 29 L30 24" stroke={BRAND.magenta} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8 12h32a3 3 0 0 1 3 3v16a3 3 0 0 1-3 3H21l-8 7v-7h-5a3 3 0 0 1-3-3V15a3 3 0 0 1 3-3Z" stroke={BRAND.magenta} strokeWidth="2.5" strokeLinejoin="round" />
+      <line x1="14" y1="20" x2="34" y2="20" stroke={BRAND.magenta} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="14" y1="27" x2="27" y2="27" stroke={BRAND.magenta} strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   ),
   eye: (
@@ -105,12 +104,12 @@ const SERVICES = [
     accent: BRAND.orange,
   },
   {
-    icon: ICONS.automation,
-    name: "אודיט לתהליך",
-    tagline: "האוטומציה רצה. השאלה לאן.",
+    icon: ICONS.message,
+    name: "אודיט תוכן ומסרים",
+    tagline: "הבוט עונה נכון. השאלה אם הוא גם מוכר.",
     body:
-      "תהליך שרץ אוטומטית לא אומר שהוא רץ נכון. עוברים על הפלואו שבנית, מוצאים איפה מידע נופל, נתקע, מוכפל, או זולג למקום שלא צריך.",
-    time: "משך: מותאם למספר השלבים בתהליך, נסגר בהצעת המחיר",
+      "עוברים על הטקסטים בפועל — מה הבוט אומר, מה כתוב בעמוד, מה כתוב במודעה — ובודקים אם זה משכנע, עקבי, ומדבר לקהל הנכון. לא רק אם זה עובד טכנית, אם זה גם מוכר.",
+    time: "משך: מותאם להיקף התוכן, נסגר בהצעת המחיר",
     accent: BRAND.magenta,
   },
 ];
