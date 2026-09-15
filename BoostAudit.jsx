@@ -100,7 +100,7 @@ const ACCESSIBILITY_STATEMENT = {
     "מצבי פוקוס ברורים וגלויים לכל אלמנט אינטראקטיבי",
   ],
   limitations:
-    "עמוד זה משמש להדגמה במסגרת הרצה בנושא נגישות — כפתורי יצירת הקשר בו אינם מחוברים לערוץ תקשורת פעיל.",
+    "בדיקת הנגישות בוצעה בכלים אוטומטיים ובבדיקת קוד — ללא בדיקה בפועל עם קוראי מסך או משתמשים עם מוגבלות.",
   coordinator: {
     name: "[שם רכז/ת הנגישות]",
     phone: "[טלפון]",
@@ -375,7 +375,7 @@ export default function BoostAudit() {
           alignItems: "center",
           textAlign: "center",
           padding: "60px 24px",
-          background: `linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), linear-gradient(135deg, ${BRAND.magenta}, ${BRAND.orange})`,
+          background: `linear-gradient(135deg, ${BRAND.magenta}, ${BRAND.orange})`,
           overflow: "hidden",
         }}
       >
@@ -391,56 +391,67 @@ export default function BoostAudit() {
             alt="Boost Me"
             style={{ width: 180, height: "auto", margin: "0 auto 24px", display: "block" }}
           />
-          <div style={{ color: "rgba(255,255,255,0.85)", fontWeight: 600, fontSize: 14, letterSpacing: "0.08em", marginBottom: 10 }}>
-            BOOST AUDIT
+          <div
+            style={{
+              background: "rgba(0,0,0,0.45)",
+              backdropFilter: "blur(6px)",
+              borderRadius: 24,
+              padding: "28px 32px",
+            }}
+          >
+            <div style={{ color: "rgba(255,255,255,0.85)", fontWeight: 600, fontSize: 14, letterSpacing: "0.08em", marginBottom: 10 }}>
+              BOOST AUDIT
+            </div>
+            <h1
+              style={{
+                fontWeight: 800,
+                fontSize: "clamp(2.2rem, 5.5vw, 4rem)",
+                color: "#fff",
+                margin: 0,
+                lineHeight: 1.15,
+              }}
+            >
+              בנית עם AI.<br />מישהו בדק?
+            </h1>
+            <p
+              style={{
+                color: "rgba(255,255,255,0.92)",
+                fontSize: "clamp(1rem, 2vw, 1.2rem)",
+                maxWidth: 520,
+                margin: "24px auto 0",
+                fontWeight: 500,
+                lineHeight: 1.6,
+              }}
+            >
+              בוטים, דפי נחיתה ותהליכים שנבנו מהר — לא תמיד נבדקו לעומק. הבדיקה שאין לכם זמן לעשות, לפני שהלקוח מוצא את זה בעצמו.
+            </p>
+            <a
+              href="https://wa.me/972545538883?text=%D7%94%D7%99%D7%99%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%90%D7%95%D7%93%D7%99%D7%98"
+              id="whatsapp-hero"
+              className="whatsapp-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="דברו איתנו בוואטסאפ — נפתח בכרטיסייה חדשה"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 9,
+                background: "#25D366",
+                color: "#fff",
+                fontWeight: 700,
+                fontSize: 15,
+                padding: "13px 26px",
+                borderRadius: 999,
+                textDecoration: "none",
+                margin: "30px auto 0",
+                boxShadow: "0 10px 24px rgba(0,0,0,0.18)",
+                transition: "transform 0.25s ease",
+              }}
+            >
+              {ICONS.whisk}
+              דברו איתנו בוואטסאפ
+            </a>
           </div>
-          <h1
-            style={{
-              fontWeight: 800,
-              fontSize: "clamp(2.2rem, 5.5vw, 4rem)",
-              color: "#fff",
-              margin: 0,
-              lineHeight: 1.15,
-            }}
-          >
-            בנית עם AI.<br />מישהו בדק?
-          </h1>
-          <p
-            style={{
-              color: "rgba(255,255,255,0.92)",
-              fontSize: "clamp(1rem, 2vw, 1.2rem)",
-              maxWidth: 520,
-              margin: "24px auto 0",
-              fontWeight: 500,
-              lineHeight: 1.6,
-            }}
-          >
-            בוטים, דפי נחיתה ותהליכים שנבנו מהר — לא תמיד נבדקו לעומק. הבדיקה שאין לכם זמן לעשות, לפני שהלקוח מוצא את זה בעצמו.
-          </p>
-          {/* TODO: placeholder href — replace with the real wa.me link before launch */}
-          <a
-            href="#"
-            id="whatsapp-hero"
-            className="whatsapp-btn"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 9,
-              background: "#25D366",
-              color: "#fff",
-              fontWeight: 700,
-              fontSize: 15,
-              padding: "13px 26px",
-              borderRadius: 999,
-              textDecoration: "none",
-              margin: "30px auto 0",
-              boxShadow: "0 10px 24px rgba(0,0,0,0.18)",
-              transition: "transform 0.25s ease",
-            }}
-          >
-            {ICONS.whisk}
-            דברו איתנו בוואטסאפ
-          </a>
         </div>
       </section>
 
@@ -555,23 +566,34 @@ export default function BoostAudit() {
       <section
         style={{
           position: "relative",
-          background: `linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), linear-gradient(135deg, ${BRAND.orange}, ${BRAND.magenta})`,
+          background: `linear-gradient(135deg, ${BRAND.orange}, ${BRAND.magenta})`,
           padding: "80px 24px",
           textAlign: "center",
         }}
       >
         <Reveal>
+          <div
+            style={{
+              display: "inline-block",
+              background: "rgba(0,0,0,0.45)",
+              backdropFilter: "blur(6px)",
+              borderRadius: 24,
+              padding: "32px 36px",
+            }}
+          >
           <h2 style={{ color: "#fff", fontWeight: 800, fontSize: "clamp(1.8rem, 4vw, 2.6rem)", margin: "0 0 16px" }}>
             מוכנים לבדוק את מה שבניתם?
           </h2>
           <p style={{ color: "rgba(255,255,255,0.92)", fontSize: 17, maxWidth: 440, margin: "0 auto 18px" }}>
             ספרו לנו מה בניתם, ונגיד לכם אם זה מוכן לצאת לאוויר.
           </p>
-          {/* TODO: placeholder href — replace with the real wa.me link before launch */}
           <a
-            href="#"
+            href="https://wa.me/972545538883?text=%D7%94%D7%99%D7%99%2C%20%D7%91%D7%A0%D7%99%D7%AA%D7%99%20%D7%9E%D7%A9%D7%94%D7%95%20%D7%95%D7%A8%D7%95%D7%A6%D7%94%20%D7%A9%D7%AA%D7%91%D7%93%D7%A7%D7%95%20%D7%90%D7%AA%20%D7%96%D7%94"
             id="whatsapp-cta"
             className="whatsapp-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="בואו נדבר בוואטסאפ — נפתח בכרטיסייה חדשה"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -592,6 +614,7 @@ export default function BoostAudit() {
             </span>
             בואו נדבר בוואטסאפ
           </a>
+          </div>
         </Reveal>
       </section>
       </main>
