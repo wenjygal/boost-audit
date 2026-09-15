@@ -374,7 +374,7 @@ export default function BoostAudit() {
           alignItems: "center",
           textAlign: "center",
           padding: "60px 24px",
-          background: `linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.32)), linear-gradient(135deg, ${BRAND.magenta}, ${BRAND.orange})`,
+          background: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), linear-gradient(135deg, ${BRAND.magenta}, ${BRAND.orange})`,
           overflow: "hidden",
         }}
       >
@@ -554,7 +554,7 @@ export default function BoostAudit() {
       <section
         style={{
           position: "relative",
-          background: `linear-gradient(rgba(0,0,0,0.32), rgba(0,0,0,0.32)), linear-gradient(135deg, ${BRAND.orange}, ${BRAND.magenta})`,
+          background: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), linear-gradient(135deg, ${BRAND.orange}, ${BRAND.magenta})`,
           padding: "80px 24px",
           textAlign: "center",
         }}
