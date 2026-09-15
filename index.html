@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Boost Audit</title>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.25.6/babel.min.js"></script>
+
+<script type="module">
+  const { useEffect, useRef, useState } = React;
+
+  const res = await fetch("./BoostAudit.jsx");
+  let source = await res.text();
+  source = source.replace(/^import\s*\{[^}]*\}\s*from\s*["']react["'];?\s*/m, "");
+  source = source.replace(/export default function/, "function");
+
+  const { code } = Babel.transform(source, {
+    presets: ["react"],
+    filename: "BoostAudit.jsx",
+  });
+
+  const BoostAudit = new Function(
+    "React", "useEffect", "useRef", "useState",
+    code + "\nreturn BoostAudit;"
+  )(React, useEffect, useRef, useState);
+
+  ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(BoostAudit));
+</script>
+</body>
+</html>
