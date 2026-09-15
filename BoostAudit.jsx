@@ -62,9 +62,9 @@ const ICONS = {
   ),
   landing: (
     <svg viewBox="0 0 48 48" width="34" height="34" fill="none" aria-hidden="true" focusable="false">
-      <rect x="7" y="9" width="34" height="30" rx="4" stroke={BRAND.orange} strokeWidth="2.5" />
-      <line x1="7" y1="17" x2="41" y2="17" stroke={BRAND.orange} strokeWidth="2.5" />
-      <rect x="15" y="25" width="18" height="8" rx="4" stroke={BRAND.orange} strokeWidth="2.5" />
+      <rect x="7" y="9" width="34" height="30" rx="4" stroke={BRAND.orangeText} strokeWidth="2.5" />
+      <line x1="7" y1="17" x2="41" y2="17" stroke={BRAND.orangeText} strokeWidth="2.5" />
+      <rect x="15" y="25" width="18" height="8" rx="4" stroke={BRAND.orangeText} strokeWidth="2.5" />
     </svg>
   ),
   message: (
@@ -363,6 +363,7 @@ export default function BoostAudit() {
         }
       `}</style>
 
+      <main>
       {/* HERO */}
       <section
         style={{
@@ -374,7 +375,7 @@ export default function BoostAudit() {
           alignItems: "center",
           textAlign: "center",
           padding: "60px 24px",
-          background: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), linear-gradient(135deg, ${BRAND.magenta}, ${BRAND.orange})`,
+          background: `linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), linear-gradient(135deg, ${BRAND.magenta}, ${BRAND.orange})`,
           overflow: "hidden",
         }}
       >
@@ -416,11 +417,11 @@ export default function BoostAudit() {
           >
             בוטים, דפי נחיתה ותהליכים שנבנו מהר — לא תמיד נבדקו לעומק. הבדיקה שאין לכם זמן לעשות, לפני שהלקוח מוצא את זה בעצמו.
           </p>
+          {/* TODO: placeholder href — replace with the real wa.me link before launch */}
           <a
             href="#"
             id="whatsapp-hero"
             className="whatsapp-btn"
-            aria-label="דברו איתנו בוואטסאפ — נפתח בחלון חדש"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -554,7 +555,7 @@ export default function BoostAudit() {
       <section
         style={{
           position: "relative",
-          background: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), linear-gradient(135deg, ${BRAND.orange}, ${BRAND.magenta})`,
+          background: `linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), linear-gradient(135deg, ${BRAND.orange}, ${BRAND.magenta})`,
           padding: "80px 24px",
           textAlign: "center",
         }}
@@ -566,11 +567,11 @@ export default function BoostAudit() {
           <p style={{ color: "rgba(255,255,255,0.92)", fontSize: 17, maxWidth: 440, margin: "0 auto 18px" }}>
             ספרו לנו מה בניתם, ונגיד לכם אם זה מוכן לצאת לאוויר.
           </p>
+          {/* TODO: placeholder href — replace with the real wa.me link before launch */}
           <a
             href="#"
             id="whatsapp-cta"
             className="whatsapp-btn"
-            aria-label="בואו נדבר בוואטסאפ — נפתח בחלון חדש"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -593,6 +594,7 @@ export default function BoostAudit() {
           </a>
         </Reveal>
       </section>
+      </main>
 
       <footer style={{ textAlign: "center", padding: "26px", color: "#6b5f52", fontSize: 13 }}>
         Boost Audit · Boost Me · GEMS Digital Projects
