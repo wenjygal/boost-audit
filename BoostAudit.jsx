@@ -87,6 +87,29 @@ const ICONS = {
   ),
 };
 
+const ACCESSIBILITY_STATEMENT = {
+  updated: "15.09.2026",
+  intro:
+    "Boost Me רואה חשיבות עליונה בהנגשת השירותים הדיגיטליים שלה לכלל הציבור, לרבות אנשים עם מוגבלות, ופועלת להתאמת אתר זה לתקן הישראלי ת\"י 5568, המבוסס על הנחיות WCAG 2.0 ברמה AA.",
+  done: [
+    "ניגודיות צבעים בין טקסט לרקע בהתאם לדרישות התקן",
+    "טקסט חלופי (alt) לתמונות משמעותיות, וסימון אייקונים דקורטיביים ככאלה",
+    "מבנה כותרות היררכי (h1–h3) המאפשר ניווט נוח עם טכנולוגיה מסייעת",
+    "תמיכה מלאה בעברית מימין לשמאל (RTL)",
+    "ניווט מלא באמצעות מקלדת בלבד, בסדר לוגי",
+    "מצבי פוקוס ברורים וגלויים לכל אלמנט אינטראקטיבי",
+  ],
+  limitations:
+    "עמוד זה משמש להדגמה במסגרת הרצה בנושא נגישות — כפתורי יצירת הקשר בו אינם מחוברים לערוץ תקשורת פעיל.",
+  coordinator: {
+    name: "[שם רכז/ת הנגישות]",
+    phone: "[טלפון]",
+    email: "[אימייל]",
+  },
+  contact:
+    "נתקלתם בבעיית נגישות באתר, או זקוקים למידע באמצעי חלופי? נשמח שתפנו אלינו בפרטי רכז/ת הנגישות שלעיל.",
+};
+
 const SERVICES = [
   {
     icon: ICONS.bot,
@@ -120,8 +143,138 @@ const SERVICES = [
   },
 ];
 
+function AccessibilityModal({ open, onClose, triggerRef }) {
+  const dialogRef = useRef(null);
+  const titleId = "accessibility-statement-title";
+
+  useEffect(() => {
+    if (!open) return;
+    const dialog = dialogRef.current;
+    const focusable = dialog.querySelectorAll(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    first && first.focus();
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || focusable.length === 0) return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+      triggerRef.current && triggerRef.current.focus();
+    };
+  }, [open, onClose, triggerRef]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(43,33,24,0.55)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+        zIndex: 1000,
+      }}
+    >
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          background: "#fff",
+          borderRadius: 18,
+          maxWidth: 560,
+          width: "100%",
+          maxHeight: "85vh",
+          overflowY: "auto",
+          padding: "32px 28px",
+          textAlign: "right",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
+          <h2 id={titleId} style={{ fontWeight: 800, fontSize: 22, margin: 0 }}>
+            הצהרת נגישות
+          </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="סגירת הצהרת הנגישות"
+            style={{
+              background: "#FBEFE4",
+              border: "none",
+              borderRadius: 10,
+              width: 34,
+              height: 34,
+              fontSize: 18,
+              lineHeight: 1,
+              cursor: "pointer",
+              color: BRAND.charcoal,
+              flexShrink: 0,
+            }}
+          >
+            ×
+          </button>
+        </div>
+
+        <p style={{ fontSize: 14, color: "#6b5f52", margin: "6px 0 18px" }}>
+          עדכון אחרון: {ACCESSIBILITY_STATEMENT.updated}
+        </p>
+
+        <p style={{ fontSize: 15, lineHeight: 1.7, margin: "0 0 18px" }}>{ACCESSIBILITY_STATEMENT.intro}</p>
+
+        <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>התאמות שבוצעו</h3>
+        <ul style={{ fontSize: 14.5, lineHeight: 1.8, margin: "0 0 18px", paddingInlineStart: 20 }}>
+          {ACCESSIBILITY_STATEMENT.done.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+
+        <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>מגבלות ידועות</h3>
+        <p style={{ fontSize: 14.5, lineHeight: 1.7, margin: "0 0 18px" }}>{ACCESSIBILITY_STATEMENT.limitations}</p>
+
+        <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>רכז/ת נגישות</h3>
+        <p style={{ fontSize: 14.5, lineHeight: 1.8, margin: "0 0 18px" }}>
+          {ACCESSIBILITY_STATEMENT.coordinator.name}
+          <br />
+          טלפון: {ACCESSIBILITY_STATEMENT.coordinator.phone}
+          <br />
+          אימייל: {ACCESSIBILITY_STATEMENT.coordinator.email}
+        </p>
+
+        <h3 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>יצירת קשר בנושא נגישות</h3>
+        <p style={{ fontSize: 14.5, lineHeight: 1.7, margin: 0 }}>{ACCESSIBILITY_STATEMENT.contact}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function BoostAudit() {
   const [heroLoaded, setHeroLoaded] = useState(false);
+  const [showAccessibility, setShowAccessibility] = useState(false);
+  const accessibilityLinkRef = useRef(null);
   useEffect(() => {
     const t = setTimeout(() => setHeroLoaded(true), 80);
     return () => clearTimeout(t);
@@ -378,7 +531,31 @@ export default function BoostAudit() {
 
       <footer style={{ textAlign: "center", padding: "26px", color: "#6b5f52", fontSize: 13 }}>
         Boost Audit · Boost Me · GEMS Digital Projects
+        <br />
+        <button
+          type="button"
+          ref={accessibilityLinkRef}
+          onClick={() => setShowAccessibility(true)}
+          style={{
+            background: "none",
+            border: "none",
+            padding: 0,
+            marginTop: 8,
+            color: "#6b5f52",
+            fontSize: 13,
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+        >
+          הצהרת נגישות
+        </button>
       </footer>
+
+      <AccessibilityModal
+        open={showAccessibility}
+        onClose={() => setShowAccessibility(false)}
+        triggerRef={accessibilityLinkRef}
+      />
     </div>
   );
 }
