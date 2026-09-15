@@ -9,6 +9,8 @@ const BRAND = {
 
 const LOGO_WHITE_IMG = "https://res.cloudinary.com/jrag9ksp/image/upload/v1785356847/white_logo_cpm31h.png";
 
+const CAPPUCCINO_IMG = "https://res.cloudinary.com/jrag9ksp/image/upload/v1785356755/coffee_boost_me_kut0q4.webp";
+
 function useReveal() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -305,6 +307,20 @@ export default function BoostAudit() {
             </p>
           </div>
         </Reveal>
+
+        <img
+          src={CAPPUCCINO_IMG}
+          alt="קפוצ'ינו עם ציור הבוט של Boost Me"
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: "50%",
+            transform: "translate(-50%, 45%)",
+            width: 190,
+            height: "auto",
+            zIndex: 2,
+          }}
+        />
       </section>
 
       {/* CTA */}
